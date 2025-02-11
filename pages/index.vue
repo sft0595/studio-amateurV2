@@ -200,7 +200,6 @@
           x: '30%',
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: '.projectHead',
             scrub: 0.5, // ties animation progress to scrolling (1 second delay)
             toggleActions: 'play none none reverse',
           },
@@ -229,7 +228,6 @@
           x: '-30%',
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: '.projectHead',
             scrub: 0.5, // ties animation progress to scrolling (1 second delay)
             toggleActions: 'play none none reverse',
           },
@@ -258,7 +256,6 @@
           x: '30%',
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: '.projectHead',
             scrub: 0.5, // ties animation progress to scrolling (1 second delay)
             toggleActions: 'play none none reverse',
           },
@@ -286,7 +283,6 @@
           x: '-30%',
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: '.projectHead',
             scrub: 0.5, // ties animation progress to scrolling (1 second delay)
             toggleActions: 'play none none reverse',
           },
