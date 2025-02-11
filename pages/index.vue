@@ -52,7 +52,7 @@
       >
         <img
           src="/assets/images/bg/clientThink.webp"
-          alt="What we thing about client"
+          alt="What we think about client"
         />
       </div>
       <div
@@ -124,7 +124,7 @@
           style="
             min-width: 350px;
             min-height: 400px;
-            background-image: url('_nuxt/assets/images/creative-min.jpg');
+            background-image: url('/assets/images/creative-min.jpg');
             background-size: cover;
             background-position: bottom, center;
             background-repeat: no-repeat;
@@ -179,7 +179,7 @@
           background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url('_nuxt/assets/images/bg/apartments.webp');
+          background-image: url('/assets/images/bg/apartments.webp');
           margin-left: auto;
           margin-right: 0;
         "
@@ -204,7 +204,7 @@
           background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url('_nuxt/assets/images/bg/Office-Interior.jpg');
+          background-image: url('/assets/images/bg/Office-Interior.jpg');
           margin-right: auto;
         "
         v-gsap.whenVisible.delay-1000.from="{
@@ -228,7 +228,7 @@
           background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url('_nuxt/assets/images/bg/restaurants.webp');
+          background-image: url('/assets/images/bg/restaurants.webp');
           margin-left: auto;
         "
         v-gsap.whenVisible.from="{
@@ -251,7 +251,7 @@
           background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url('_nuxt/assets/images/j to d/jtod (10).jpg');
+          background-image: url('/assets/images/j to d/jtod (10).jpg');
           margin-right: auto;
         "
         v-gsap.whenVisible.from="{
@@ -286,10 +286,10 @@
           class="m-10 lg:m-0 overflow-hidden"
           v-gsap.whenVisible.from="{ opacity: 0, y: '40%' }"
         >
-          <!-- <img
-            src="~/assets/images/sharfuddin-mahamood-chowdhury.png"
+          <img
+            src="assets/images/sharfuddin-mahamood-chowdhury.png"
             alt="Chatta Metro Restaurant chittagong, chattogram"
-          /> -->
+          />
         </div>
 
         <!-- Description -->
@@ -353,7 +353,7 @@
   position: absolute;
   left: 0;
   top: 50px;
-  background-image: url(/assets/images/bg/lightbg.jpg);
+  background-image: url('~/assets/images/bg/lightbg.jpg');
   background-position: center center;
   background-size: cover;
   z-index: 2;

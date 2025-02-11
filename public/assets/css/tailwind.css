@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #F5F5DC;
+  color: #1e1005;
+  height: auto;
+  overflow-x: hidden;
+}
+
+* {
+  font-family: "IBM Plex Serif", serif;
+}
