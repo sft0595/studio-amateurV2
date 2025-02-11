@@ -57,7 +57,7 @@
       </div>
       <div
         v-gsap.whenVisible.delay-1000.stagger.from="{
-          opacity: 1,
+          opacity: 0,
           x: '100%',
           delay: 0.5,
           duration: 2,
@@ -130,7 +130,12 @@
             background-repeat: no-repeat;
           "
           class="m-10 lg:m-0 overflow-hidden"
-          v-gsap.whenVisible.from="{ opacity: 0, y: '40%' }"
+          v-gsap.whenVisible.from="{
+            opacity: 0,
+            y: '40%',
+            start: 'top 80%',
+            duration: 2,
+          }"
         >
           <!-- <img
             class="w-full hidden lg:block"
@@ -186,6 +191,7 @@
         v-gsap.whenVisible.from="{
           opacity: 0,
           x: '40%',
+          start: 'top 80%',
           duration: 2,
         }"
       >
@@ -209,7 +215,8 @@
         "
         v-gsap.whenVisible.delay-1000.from="{
           opacity: 0,
-          x: '-40%',
+  x: '-40%',
+          start: 'top 80%',
           duration: 2,
         }"
       >
@@ -233,7 +240,8 @@
         "
         v-gsap.whenVisible.from="{
           opacity: 0,
-          x: '40%',
+  x: '40%',
+          start: 'top 80%',
           duration: 2,
         }"
       >
@@ -256,7 +264,8 @@
         "
         v-gsap.whenVisible.from="{
           opacity: 0,
-          x: '-40%',
+  x: '-40%',
+          start: 'top 80%',
           duration: 2,
         }"
       >
@@ -284,7 +293,7 @@
         <div
           style="max-width: 400px"
           class="m-10 lg:m-0 overflow-hidden"
-          v-gsap.whenVisible.from="{ opacity: 0, y: '40%' }"
+          v-gsap.whenVisible.from="{ opacity: 0, start: 'top 80%', y: '40%' }"
         >
           <img
             src="/assets/images/director.png"
@@ -295,7 +304,7 @@
         <!-- Description -->
         <div
           class="max-w-3xl"
-          v-gsap.whenVisible.from="{ opacity: 0, x: '40%' }"
+          v-gsap.whenVisible.from="{ opacity: 0, start: 'top 80%', x: '40%' }"
         >
           <div class="px-10 mb-10">
             <p class="text-xl text-justify">
@@ -353,7 +362,7 @@
   position: absolute;
   left: 0;
   top: 50px;
-  background-image: url('~/assets/images/bg/lightbg.jpg');
+  background-image: url("~/assets/images/bg/lightbg.jpg");
   background-position: center center;
   background-size: cover;
   z-index: 2;
