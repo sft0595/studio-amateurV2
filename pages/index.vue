@@ -41,7 +41,7 @@
     </div>
 
     <article
-      class="flex items-center justify-center p-5 overflow-hidden"
+      class="researchProcess flex items-center justify-center p-5 overflow-hidden"
       style="max-width: 1200px; margin: 150px auto"
       v-gsap.whenVisible.from="{ scale: 0.8, height: 0, padding: 0 }"
     >
@@ -130,11 +130,18 @@
             background-repeat: no-repeat;
           "
           class="m-10 lg:m-0 overflow-hidden"
-          v-gsap.whenVisible.from="{
+          v-gsap.from="{
             opacity: 0,
-            y: '40%',
-            start: 'top 80%',
-            duration: 2,
+            y: '50%',
+            duration: 5,
+            scrollTrigger: {
+              // If you omit trigger, it will use the element itself as trigger.
+              // Alternatively, you can set trigger: $el if supported.
+              trigger: '.researchProcess',
+              scrub: 1, // Ties the animation progress to scrolling (1 second delay)
+              start: 'top top', // Animation starts when the top of the element hits the bottom of the viewport
+              toggleActions: 'play none none reverse',
+            },
           }"
         >
           <!-- <img
@@ -188,11 +195,15 @@
           margin-left: auto;
           margin-right: 0;
         "
-        v-gsap.whenVisible.from="{
+        v-gsap.from="{
           opacity: 0,
-          x: '40%',
-          start: 'top 80%',
-          duration: 2,
+          x: '30%',
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.projectHead',
+            scrub: 0.5, // ties animation progress to scrolling (1 second delay)
+            toggleActions: 'play none none reverse',
+          },
         }"
       >
         <a href="" class="relative block">
@@ -213,11 +224,15 @@
           background-image: url('/assets/images/bg/Office-Interior.jpg');
           margin-right: auto;
         "
-        v-gsap.whenVisible.delay-1000.from="{
+        v-gsap.from="{
           opacity: 0,
-  x: '-40%',
-          start: 'top 80%',
-          duration: 2,
+          x: '-30%',
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.projectHead',
+            scrub: 0.5, // ties animation progress to scrolling (1 second delay)
+            toggleActions: 'play none none reverse',
+          },
         }"
       >
         <a href="" class="relative block">
@@ -238,11 +253,15 @@
           background-image: url('/assets/images/bg/restaurants.webp');
           margin-left: auto;
         "
-        v-gsap.whenVisible.from="{
+        v-gsap.from="{
           opacity: 0,
-  x: '40%',
-          start: 'top 80%',
-          duration: 2,
+          x: '30%',
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.projectHead',
+            scrub: 0.5, // ties animation progress to scrolling (1 second delay)
+            toggleActions: 'play none none reverse',
+          },
         }"
       >
         <a href="" class="relative block">
@@ -262,11 +281,15 @@
           background-image: url('/assets/images/j to d/jtod (10).jpg');
           margin-right: auto;
         "
-        v-gsap.whenVisible.from="{
+        v-gsap.from="{
           opacity: 0,
-  x: '-40%',
-          start: 'top 80%',
-          duration: 2,
+          x: '-30%',
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.projectHead',
+            scrub: 0.5, // ties animation progress to scrolling (1 second delay)
+            toggleActions: 'play none none reverse',
+          },
         }"
       >
         <a href="" class="relative block">
@@ -277,14 +300,14 @@
       </div>
     </section>
 
-    <section style="margin-top: 150px">
+    <section
+      style="margin-top: 150px; overflow: hidden"
+      class="w-full zoom-container"
+    >
       <div class="lg:flex justify-end items-center">
         <!-- Title -->
         <div class="px-10">
-          <p
-            class="lg:text-8xl text-5xl font-bold lg:text-right"
-            v-gsap.whenVisible.from="{ opacity: 0, x: '-40%' }"
-          >
+          <p class="lg:text-8xl text-5xl font-bold lg:text-right">
             Director's Message
           </p>
         </div>
@@ -293,19 +316,27 @@
         <div
           style="max-width: 400px"
           class="m-10 lg:m-0 overflow-hidden"
-          v-gsap.whenVisible.from="{ opacity: 0, start: 'top 80%', y: '40%' }"
+          v-gsap.from="{
+            opacity: 1,
+            scale: 1, // Start zoomed out
+            y: '50px',
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: '.zoom-container', // The image itself is the trigger
+              start: 'center', // Start the animation when the top of the element hits the bottom of the viewport
+              end: 'bottom', // Keep zooming as long as the element is moving to the center of the viewport
+              scrub: 2, // Smooth animation progress with scroll
+            },
+          }"
         >
           <img
             src="/assets/images/director.png"
-            alt="Chatta Metro Restaurant chittagong, chattogram"
+            alt="Sharfuddin Mahamood Chowdhury, Director, Studio Amaeteures"
           />
         </div>
 
         <!-- Description -->
-        <div
-          class="max-w-3xl"
-          v-gsap.whenVisible.from="{ opacity: 0, start: 'top 80%', x: '40%' }"
-        >
+        <div class="max-w-3xl">
           <div class="px-10 mb-10">
             <p class="text-xl text-justify">
               <i>
