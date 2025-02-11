@@ -51,7 +51,7 @@
         v-gsap.whenVisible.from="{ y: 100, duration: 2, ease: 'power2.in' }"
       >
         <img
-          src="~/public/images/bg/clientThink.webp"
+          src="/assets/images/bg/clientThink.webp"
           alt="What we thing about client"
         />
       </div>
@@ -124,7 +124,7 @@
           style="
             min-width: 350px;
             min-height: 400px;
-            background-image: url('~/public/images/creative-min.jpg');
+            background-image: url('_nuxt/assets/images/creative-min.jpg');
             background-size: cover;
             background-position: bottom, center;
             background-repeat: no-repeat;
@@ -134,7 +134,7 @@
         >
           <!-- <img
             class="w-full hidden lg:block"
-            src="~/public/images/creative-min.jpg"
+            src="/assets/images/creative-min.jpg"
             alt="Chatta Metro Restaurant chittagong, chattogram"
           /> -->
         </div>
@@ -179,7 +179,7 @@
           background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url('_nuxt/public/images/bg/apartments.webp');
+          background-image: url('_nuxt/assets/images/bg/apartments.webp');
           margin-left: auto;
           margin-right: 0;
         "
@@ -204,7 +204,7 @@
           background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url('_nuxt/public/images/bg/Office-Interior.jpg');
+          background-image: url('_nuxt/assets/images/bg/Office-Interior.jpg');
           margin-right: auto;
         "
         v-gsap.whenVisible.delay-1000.from="{
@@ -228,7 +228,7 @@
           background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url('_nuxt/public/images/bg/restaurants.webp');
+          background-image: url('_nuxt/assets/images/bg/restaurants.webp');
           margin-left: auto;
         "
         v-gsap.whenVisible.from="{
@@ -251,7 +251,7 @@
           background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
-          background-image: url('_nuxt/public/images/j to d/jtod (10).jpg');
+          background-image: url('_nuxt/assets/images/j to d/jtod (10).jpg');
           margin-right: auto;
         "
         v-gsap.whenVisible.from="{
@@ -286,10 +286,10 @@
           class="m-10 lg:m-0 overflow-hidden"
           v-gsap.whenVisible.from="{ opacity: 0, y: '40%' }"
         >
-          <img
-            src="~/public/images/sharfuddin-mahamood-chowdhury.png"
+          <!-- <img
+            src="~/assets/images/sharfuddin-mahamood-chowdhury.png"
             alt="Chatta Metro Restaurant chittagong, chattogram"
-          />
+          /> -->
         </div>
 
         <!-- Description -->
@@ -328,7 +328,7 @@
 
     <section>
       <div class="contact-image">
-        <img src="~/public/images/footer.jpg" alt="Contact us" class="w-full" />
+        <img src="/assets/images/footer.jpg" alt="Contact us" class="w-full" />
       </div>
     </section>
 
@@ -353,7 +353,7 @@
   position: absolute;
   left: 0;
   top: 50px;
-  background-image: url('_nuxt/public/images/bg/lightbg.jpg');
+  background-image: url(/assets/images/bg/lightbg.jpg);
   background-position: center center;
   background-size: cover;
   z-index: 2;
