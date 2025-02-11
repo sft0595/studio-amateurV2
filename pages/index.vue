@@ -287,7 +287,7 @@
           v-gsap.whenVisible.from="{ opacity: 0, y: '40%' }"
         >
           <img
-            src="assets/images/sharfuddin-mahamood-chowdhury.png"
+            src="/assets/images/sharfuddin-mahamood-chowdhury.png"
             alt="Chatta Metro Restaurant chittagong, chattogram"
           />
         </div>
