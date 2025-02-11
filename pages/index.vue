@@ -281,16 +281,16 @@
         </div>
 
         <!-- Image Container -->
-        <!-- <div
+        <div
           style="max-width: 400px"
           class="m-10 lg:m-0 overflow-hidden"
           v-gsap.whenVisible.from="{ opacity: 0, y: '40%' }"
         >
           <img
-            src="/assets/images/sharfuddin-mahamood-chowdhury.png"
+            src="/assets/images/director.png"
             alt="Chatta Metro Restaurant chittagong, chattogram"
           />
-        </div> -->
+        </div>
 
         <!-- Description -->
         <div
