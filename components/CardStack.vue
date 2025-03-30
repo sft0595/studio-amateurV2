@@ -1,18 +1,12 @@
 <template>
   <div class="card-stack-container" ref="container">
-    <div class="card-wrapper">
-      <div 
-        v-for="(card, index) in cards"
-        :key="index"
-        class="stack-card"
-        :style="{
-          zIndex: cards.length - index,
-          transform: getCardTransform(index),
-          transition: activeCard === index ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
-        }"
-      >
-        <slot name="card" :card="card" :index="index"></slot>
-      </div>
+    <div 
+      v-for="(card, index) in cards"
+      :key="index"
+      class="stack-card"
+      :style="cardStyle(index)"
+    >
+      <slot name="card" :card="card" :index="index"></slot>
     </div>
   </div>
 </template>
@@ -27,59 +21,71 @@ const props = defineProps({
   },
   cardHeight: {
     type: String,
-    default: '100vh'
+    default: '80vh'
+  },
+  threshold: {
+    type: Number,
+    default: 0.8
   }
 });
 
-const activeCard = ref(0);
 const container = ref(null);
-const isAnimating = ref(false);
+const activeCard = ref(0);
+const isScrolling = ref(false);
+const lastScroll = ref(0);
 
-const getCardTransform = (index) => {
-  if (index < activeCard.value) {
-    return 'translateY(-50%) scale(0.95)';
-  }
-  if (index > activeCard.value) {
-    return 'translateY(100%)';
-  }
-  return 'translateY(0)';
+const cardStyle = (index) => ({
+  height: props.cardHeight,
+  transform: `translateY(${(index - activeCard.value) * 100}%)`,
+  transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+  zIndex: props.cards.length - Math.abs(index - activeCard.value)
+});
+
+const isContainerInView = () => {
+  const rect = container.value.getBoundingClientRect();
+  return (
+    rect.top < window.innerHeight * props.threshold &&
+    rect.bottom > window.innerHeight * (1 - props.threshold)
+  );
 };
 
 const handleScroll = (e) => {
-  if (isAnimating.value) return;
+  if (isScrolling.value) return;
   
   const delta = e.deltaY;
-  const previousActive = activeCard.value;
+  const direction = delta > 0 ? 1 : -1;
+  const containerVisible = isContainerInView();
 
-  if (delta > 20 && activeCard.value < props.cards.length - 1) {
-    activeCard.value++;
-  } else if (delta < -20 && activeCard.value > 0) {
-    activeCard.value--;
+  if (!containerVisible) return;
+
+  e.preventDefault();
+  isScrolling.value = true;
+
+  const newIndex = Math.min(
+    Math.max(activeCard.value + direction, 0),
+    props.cards.length - 1
+  );
+
+  if (newIndex !== activeCard.value) {
+    activeCard.value = newIndex;
+    window.scrollTo({
+      top: container.value.offsetTop + (newIndex * window.innerHeight),
+      behavior: 'smooth'
+    });
   }
 
-  if (previousActive !== activeCard.value) {
-    isAnimating.value = true;
-    setTimeout(() => {
-      isAnimating.value = false;
-    }, 600);
-  }
-};
-
-const updateContainerHeight = () => {
-  if (container.value) {
-    container.value.style.height = `${props.cards.length * window.innerHeight}px`;
-  }
+  setTimeout(() => {
+    isScrolling.value = false;
+  }, 600);
 };
 
 onMounted(() => {
-  updateContainerHeight();
+  container.value.style.height = `${props.cards.length * 100}vh`;
   window.addEventListener('wheel', handleScroll, { passive: false });
-  window.addEventListener('resize', updateContainerHeight);
 });
 
 onUnmounted(() => {
   window.removeEventListener('wheel', handleScroll);
-  window.removeEventListener('resize', updateContainerHeight);
 });
 </script>
 
@@ -87,27 +93,20 @@ onUnmounted(() => {
 .card-stack-container {
   position: relative;
   width: 100%;
-}
-
-.card-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
+  scroll-snap-type: y mandatory;
 }
 
 .stack-card {
-  position: absolute;
+  position: sticky;
+  top: 10vh;
   width: 100%;
-  height: v-bind('props.cardHeight');
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: white;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  will-change: transform;
-  backface-visibility: hidden;
+  margin: 10vh 0;
+  scroll-snap-align: start;
 }
 </style>

@@ -299,12 +299,15 @@
 			</div>
 		</section>
 
-		<CardStack :card-height="'60vh'" :parallaxFactor="0.3">
-      <div class="stack-card" v-for="(section, index) in sections" :key="index" :data-index="index" :style="{ zIndex: sections.length - index }">
-        <h2>{{ section.title }}</h2>
-        <p>{{ section.content }}</p>
-      </div>
-    </CardStack>
+		<section>
+			<CardStack :cards="cards">
+				<template #card="{ card }">
+					<div class="card-content" :style="{ background: card.color, borderRadius:'0', width:'100%', height:'100%' }">
+						<h2>{{ card.title }}</h2>
+					</div>
+				</template>
+			</CardStack>
+		</section>
 
 		<section style="margin: 150px auto; overflow: hidden" class="w-full">
 			<div class="lg:flex justify-end items-center">
@@ -453,12 +456,11 @@
 </template>
 
 <script setup>
-	const sections = ref([
-		{ title: "Card 1", content: "This is the first card." },
-		{ title: "Card 2", content: "This is the second card." },
-		{ title: "Card 3", content: "This is the third card." },
-		{ title: "Card 4", content: "This is the fourth card." },
-	]);
+	const cards = [
+  { title: 'Card 1', color: '#FF6B6B' },
+  { title: 'Card 2', color: '#4ECDC4' },
+  { title: 'Card 3', color: '#45B7D1' }
+];
 </script>
 
 <style scoped>

@@ -1,46 +1,51 @@
 <template>
   <div>
-    
-    <CardStack :cards="sections">
-      <template #card="{ card, index }">
-        <div class="card-content" :style="{ backgroundColor: colors[index] }">
-          <h2>{{ card.title }}</h2>
-          <p>{{ card.content }}</p>
-        </div>
-      </template>
-    </CardStack>
+    <section class="regular-content">
+      <h1>Content before the card stack</h1>
+      <p>Scroll down to start interacting with cards</p>
+    </section>
+
+    <CardStack :cards="cards">
+    <template #card="{ card }">
+      <div class="content" :style="{ background: card.color }">
+        <h2>{{ card.title }}</h2>
+        <p>{{ card.content }}</p>
+      </div>
+    </template>
+  </CardStack>
+
+    <section class="regular-content">
+      <h1>Content after the card stack</h1>
+      <p>This will only become scrollable after all cards are viewed</p>
+    </section>
   </div>
 </template>
 
 <script setup>
-const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'];
-const sections = ref([
-  { title: 'First Card', content: 'Scroll down to continue' },
-  { title: 'Second Card', content: 'Keep scrolling' },
-  { title: 'Third Card', content: 'Almost there' },
-  { title: 'Last Card', content: 'Scroll up to go back' }
+
+const cards = ref([
+  { title: 'First Card', content: 'Scroll down to continue', color: '#FFB3BA' },
+  { title: 'Second Card', content: 'Keep scrolling', color: '#BAFFC9' },
+  { title: 'Third Card', content: 'Almost there', color: '#BAE1FF' },
+  { title: 'Final Card', content: 'Last card - scroll down for normal scrolling', color: '#FFFFBA' }
 ]);
 </script>
 
 <style>
-.card-content {
-  width: 100%;
-  height: 100%;
+.regular-content {
+  min-height: 100vh;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.custom-card {
+  width: 80%;
+  height: 80%;
   padding: 2rem;
   border-radius: 15px;
-}
-
-h2 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-p {
-  font-size: 1.2rem;
-  color: #666;
+  text-align: center;
 }
 </style>
