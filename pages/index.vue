@@ -183,7 +183,7 @@
 		</section>
 
 		<section
-			style="display: flex; flex-direction: column"
+			style="margin: 150px auto; display: flex; flex-direction: column"
 			class="overflow-hidden"
 		>
 			<div
@@ -299,15 +299,7 @@
 			</div>
 		</section>
 
-		<section>
-			<CardStack :cards="cards">
-				<template #card="{ card }">
-					<div class="card-content" :style="{ background: card.color, borderRadius:'0', width:'100%', height:'100%' }">
-						<h2>{{ card.title }}</h2>
-					</div>
-				</template>
-			</CardStack>
-		</section>
+	
 
 		<section style="margin: 150px auto; overflow: hidden" class="w-full">
 			<div class="lg:flex justify-end items-center">
@@ -389,6 +381,32 @@
 			</div>
 		</section>
 
+
+			<section>
+			<CardStack :cards="cards">
+				<template #card="{ card, index }">
+					<div
+						class="content"
+						:style="{
+							backgroundImage: `url(${card.backgroundImage})` /* ... */,
+						}"
+					>
+						<div class="flex justify-content-around">
+							<div class="content-details">
+								<h2 class="text-3xl">{{ card.title }}</h2>
+								<p>{{ card.content }}</p>
+							</div>
+							<div class="content-details text-right">
+								<p class="text-4xl">
+									{{ index + 1 }} / {{ cards.length }}
+								</p>
+							</div>
+						</div>
+					</div>
+				</template>
+			</CardStack>
+		</section>
+
 		<section>
 			<div
 				class="contact-image"
@@ -456,11 +474,34 @@
 </template>
 
 <script setup>
-	const cards = [
-  { title: 'Card 1', color: '#FF6B6B' },
-  { title: 'Card 2', color: '#4ECDC4' },
-  { title: 'Card 3', color: '#45B7D1' }
-];
+	const currentIndex = ref(0);
+
+	const cards = ref([
+		{
+			title: "First Card",
+			content: "Scroll down to continue",
+			backgroundImage:
+				"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+1",
+		},
+		{
+			title: "Second Card",
+			content: "Keep scrolling",
+			backgroundImage:
+				"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+2",
+		},
+		{
+			title: "Third Card",
+			content: "Almost there",
+			backgroundImage:
+				"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+3",
+		},
+		{
+			title: "Final Card",
+			content: "Last card - scroll down for normal scrolling",
+			backgroundImage:
+				"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+4",
+		},
+	]);
 </script>
 
 <style scoped>
@@ -488,7 +529,7 @@
 		left: 0;
 		top: 50px;
 		background-image: url("~/assets/images/bg/lightbg.jpg");
-		background-position: center center;
+		background-position: center;
 		background-size: cover;
 		z-index: 2;
 	}
@@ -526,5 +567,33 @@
 		height: 100%;
 		top: 0;
 		background: linear-gradient(-90deg, rgba(80, 48, 27, 0.8), transparent);
+	}
+
+	.content {
+		width: 100%;
+		height: 100%;
+		padding: 2rem;
+		position: relative;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		color: white; /* Change text color to be visible on images */
+		text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Add shadow for better readability */
+	}
+
+	.content::before {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(80, 48, 27, 0.6);
+		top: 0;
+		right: 0;
+	}
+
+	.content-details {
+		width: 100%;
+		position: relative;
+		z-index: 1;
 	}
 </style>

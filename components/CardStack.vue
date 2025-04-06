@@ -1,10 +1,11 @@
 <template>
   <div class="card-stack-container" ref="container">
-    <div 
+    <div
       v-for="(card, index) in cards"
       :key="index"
       class="stack-card"
       :style="cardStyle(index)"
+      :data-index="index"
     >
       <slot name="card" :card="card" :index="index"></slot>
     </div>
@@ -12,101 +13,120 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from "vue";
 
 const props = defineProps({
   cards: {
     type: Array,
-    required: true
+    required: true,
   },
   cardHeight: {
     type: String,
-    default: '80vh'
+    default: "80vh",
   },
   threshold: {
     type: Number,
-    default: 0.8
-  }
+    default: 0.1,
+  },
+  activeIndex: {
+    type: Number,
+    default: 0,
+  },
 });
 
+const emit = defineEmits(["update:activeIndex"]);
+
 const container = ref(null);
-const activeCard = ref(0);
-const isScrolling = ref(false);
-const lastScroll = ref(0);
 
 const cardStyle = (index) => ({
   height: props.cardHeight,
-  transform: `translateY(${(index - activeCard.value) * 100}%)`,
-  transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-  zIndex: props.cards.length - Math.abs(index - activeCard.value)
+  top: `${index * 5}vh`,
+  zIndex: index,
 });
 
-const isContainerInView = () => {
-  const rect = container.value.getBoundingClientRect();
-  return (
-    rect.top < window.innerHeight * props.threshold &&
-    rect.bottom > window.innerHeight * (1 - props.threshold)
-  );
-};
+const handleStickyCards = () => {
+  const cards = container.value.querySelectorAll(".stack-card");
+  const scrollTop = window.scrollY;
+  const viewportHeight = window.innerHeight;
+  const containerTop = container.value.getBoundingClientRect().top + scrollTop;
 
-const handleScroll = (e) => {
-  if (isScrolling.value) return;
-  
-  const delta = e.deltaY;
-  const direction = delta > 0 ? 1 : -1;
-  const containerVisible = isContainerInView();
+  let newActiveIndex = props.activeIndex;
 
-  if (!containerVisible) return;
+  cards.forEach((card, index) => {
+    const cardTop = containerTop + index * (viewportHeight * 0.8);
+    const distanceFromTop = scrollTop - cardTop;
+    const stackRange = viewportHeight * 0.5;
+    const progress = Math.min(Math.max(distanceFromTop / stackRange, 0), 1);
 
-  e.preventDefault();
-  isScrolling.value = true;
+    if (progress > 0) {
+      // const scaleFactor = 1 - (props.cards.length - 1 - index) * 0.05 * progress;
+      const translateY = -(props.cards.length - 1 - index) * 20 * progress;
+      card.style.transform = `scale(${scaleFactor}) translateY(${translateY}px)`;
+      card.style.transition = "transform 0.3s ease-out";
+    } else {
+      card.style.transform = "none";
+      card.style.transition = "transform 0.3s ease-out";
+    }
 
-  const newIndex = Math.min(
-    Math.max(activeCard.value + direction, 0),
-    props.cards.length - 1
-  );
+    // Set active index based on the card most visible at the top
+    if (distanceFromTop >= 0 && distanceFromTop < viewportHeight * 0.8) {
+      newActiveIndex = index;
+    } else if (index === props.cards.length - 1 && scrollTop >= cardTop) {
+      newActiveIndex = index; // Ensure last card is active when scrolled past
+    }
+  });
 
-  if (newIndex !== activeCard.value) {
-    activeCard.value = newIndex;
-    window.scrollTo({
-      top: container.value.offsetTop + (newIndex * window.innerHeight),
-      behavior: 'smooth'
-    });
+  if (newActiveIndex !== props.activeIndex) {
+    emit("update:activeIndex", newActiveIndex);
   }
-
-  setTimeout(() => {
-    isScrolling.value = false;
-  }, 600);
 };
+
+const debounce = (func, wait) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+};
+
+const debouncedHandleStickyCards = debounce(handleStickyCards, 10);
 
 onMounted(() => {
   container.value.style.height = `${props.cards.length * 100}vh`;
-  window.addEventListener('wheel', handleScroll, { passive: false });
+  window.addEventListener("scroll", debouncedHandleStickyCards);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('wheel', handleScroll);
+  window.removeEventListener("scroll", debouncedHandleStickyCards);
 });
 </script>
 
 <style scoped>
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
 .card-stack-container {
   position: relative;
   width: 100%;
-  scroll-snap-type: y mandatory;
 }
 
 .stack-card {
   position: sticky;
-  top: 10vh;
   width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: white;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  margin: 10vh 0;
-  scroll-snap-align: start;
+  background: rgba(255, 255, 255, 0.9);
+  transform-origin: center top;
 }
 </style>
