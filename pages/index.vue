@@ -1,5 +1,6 @@
 <template>
 	<section>
+		<WhatsappChat></WhatsappChat>
 		<div class="headshot-container mb-8">
 			<div
 				class="left-align-headshot w-full md:w-3/5"
@@ -483,22 +484,26 @@
 		</section>
 
 		<div class="flex justify-center gap-5 my-5">
+
 			<a
-				href="https://wa.me/+8801956491391?text=Hello%20I%20have%20a%20question"
+				href="https://www.youtube.com/@studioamateurbd"
+				target="_blank"
+			>
+				<i class="pi pi-youtube" style="font-size: 2rem; color:#9C7443"></i>
+			</a>
+			
+			<a
+				href="https://www.facebook.com/studioamateurbd"
+				target="_blank"
 			>
 				<i class="pi pi-facebook" style="font-size: 2rem; color:#9C7443"></i>
 			</a>
 
 			<a
-				href="https://wa.me/+8801956491391?text=Hello%20I%20have%20a%20question"
+				href="https://www.instagram.com/studioamateurbd"
+				target="_blank"
 			>
 				<i class="pi pi-instagram" style="font-size: 2rem; color:#9C7443"></i>
-			</a>
-
-			<a
-				href="https://wa.me/+8801956491391?text=Hello%20I%20have%20a%20question"
-			>
-				<i class="pi pi-whatsapp" style="font-size: 2rem; color:#9C7443"></i>
 			</a>
 		</div>
 	</section>
