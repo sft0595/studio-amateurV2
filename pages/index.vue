@@ -408,6 +408,11 @@
 			</CardStack>
 		</section>
 
+
+		<section style="margin: 150px auto;">
+			<ClientMarquee></ClientMarquee>
+		</section>
+
 		<section>
 			<iframe
 				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.237032630447!2d91.82103568533017!3d22.344677088842246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd9a26f6c8d3f%3A0x5e9bcde43e106d04!2sStudio%20Amateur!5e0!3m2!1sen!2sbd!4v1746180165739!5m2!1sen!2sbd"
@@ -491,7 +496,7 @@
 			>
 				<i class="pi pi-youtube" style="font-size: 2rem; color:#9C7443"></i>
 			</a>
-			
+
 			<a
 				href="https://www.facebook.com/studioamateurbd"
 				target="_blank"

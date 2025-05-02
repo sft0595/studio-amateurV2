@@ -61,7 +61,8 @@ const handleStickyCards = () => {
     if (progress > 0) {
       // const scaleFactor = 1 - (props.cards.length - 1 - index) * 0.05 * progress;
       const translateY = -(props.cards.length - 1 - index) * 20 * progress;
-      card.style.transform = `scale(${scaleFactor}) translateY(${translateY}px)`;
+      // card.style.transform = `scale(${scaleFactor}) translateY(${translateY}px)`;
+      card.style.transform = `translateY(${translateY}px)`;
       card.style.transition = "transform 0.3s ease-out";
     } else {
       card.style.transform = "none";
