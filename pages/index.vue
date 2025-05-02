@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<div class="headshot-container mt-5 mb-8">
+		<div class="headshot-container mb-8">
 			<div
 				class="left-align-headshot w-full md:w-3/5"
 				v-gsap.whenVisible.once.from="{
@@ -299,8 +299,6 @@
 			</div>
 		</section>
 
-	
-
 		<section style="margin: 150px auto; overflow: hidden" class="w-full">
 			<div class="lg:flex justify-end items-center">
 				<!-- Title -->
@@ -381,8 +379,7 @@
 			</div>
 		</section>
 
-
-			<section>
+		<section>
 			<CardStack :cards="cards">
 				<template #card="{ card, index }">
 					<div
@@ -392,9 +389,9 @@
 						}"
 					>
 						<div class="flex justify-content-around">
-							<div class="content-details">
-								<h2 class="text-3xl">{{ card.title }}</h2>
-								<p class="text-lg font-thin">{{ card.content }}</p>
+							<div class="content-details" style="color: #f5f5dc;">
+								<p class="text-xl">{{ card.date }}</p>
+								<h2 class="text-6xl">{{ card.title }}</h2>
 							</div>
 							<div class="content-details text-right">
 								<p class="text-4xl font-thin">
@@ -402,12 +399,24 @@
 								</p>
 							</div>
 							<div class="content-footer">
-								<p class="text-lg">{{ card.date }}</p>
+								<Button label="Explore" icon="pi pi-arrow-right"></Button>
 							</div>
 						</div>
 					</div>
 				</template>
 			</CardStack>
+		</section>
+
+		<section>
+			<iframe
+				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.237032630447!2d91.82103568533017!3d22.344677088842246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd9a26f6c8d3f%3A0x5e9bcde43e106d04!2sStudio%20Amateur!5e0!3m2!1sen!2sbd!4v1746180165739!5m2!1sen!2sbd"
+				class="w-full"
+				height="600"
+				style="border: 0"
+				allowfullscreen="true"
+				loading="lazy"
+				referrerpolicy="no-referrer-when-downgrade"
+			></iframe>
 		</section>
 
 		<section>
@@ -433,8 +442,8 @@
 						width: 100%;
 						height: 100%;
 						background: linear-gradient(
-							rgb(245, 245, 221, 0.1),
-							rgb(245, 245, 221, 0.6)
+							rgba(245, 245, 221, 0.1),
+							rgba(245, 245, 221, 0.6)
 						);
 					"
 				></div>
@@ -453,56 +462,78 @@
 			></iframe> -->
 		</section>
 
-		<section style="margin: 150px auto">
+		<section style="margin-top: 150px" class="mx-auto">
 			<form action="" style="max-width: 600px; margin: 0 auto">
 				<div class="flex justify-content-center align-items-center gap-3 mb-3">
 					<InputText class="w-full" placeholder="Full Name" />
 					<InputText class="w-full" placeholder="Email" />
 				</div>
 				<div class="flex justify-content-center align-items-center gap-3">
-					<InputText class="w-full" placeholder="Share Your Concerns" />
+					<Textarea
+						v-model="value"
+						class="w-full"
+						rows="5"
+						cols="30"
+						placeholder="Share your concern . . ."
+					/>
 				</div>
 
 				<Button label="Send Message" icon="pi pi-send" class="mx-auto my-3" />
 			</form>
 		</section>
 
-		<div>
+		<div class="flex justify-center gap-5 my-5">
 			<a
 				href="https://wa.me/+8801956491391?text=Hello%20I%20have%20a%20question"
-				>Chat with us on WhatsApp</a
 			>
+				<i class="pi pi-facebook" style="font-size: 2rem; color:#9C7443"></i>
+			</a>
+
+			<a
+				href="https://wa.me/+8801956491391?text=Hello%20I%20have%20a%20question"
+			>
+				<i class="pi pi-instagram" style="font-size: 2rem; color:#9C7443"></i>
+			</a>
+
+			<a
+				href="https://wa.me/+8801956491391?text=Hello%20I%20have%20a%20question"
+			>
+				<i class="pi pi-whatsapp" style="font-size: 2rem; color:#9C7443"></i>
+			</a>
 		</div>
 	</section>
 </template>
 
 <script setup>
 	const currentIndex = ref(0);
-
+	import mrAjijApartmentThumb from "../assets/images/appartments/Mr. AJIJ/thumb.jpg";
+	import mrNijamuddinThumb from "../assets/images/appartments/Mr. Nijamuddin/thumb.png";
+	import chattaMetroThumb from "../assets/images/restaurants/chattaMetro/thumb.jpg";
+	import magpieRestaurantThumb from "../assets/images/restaurants/magpie/thumb.jpg";
 	const cards = ref([
 		{
-			title: "First Card",
+			title: "Mr. Ajij's Aprtment",
 			content: "Scroll down to continue",
 			date: "2023-10-01",
-			backgroundImage:"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+1",
+			backgroundImage: mrAjijApartmentThumb,
 		},
 		{
-			title: "Second Card",
+			title: "Mr. Nijam Uddin's Apartment",
 			content: "Keep scrolling",
 			date: "2024-12-23",
-			backgroundImage: "https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+2",
+			backgroundImage:mrNijamuddinThumb,
 		},
 		{
-			title: "Third Card",
+			title: "Chatta Metro Restaurant",
 			content: "Almost there",
 			date: "2025-01-15",
-			backgroundImage:"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+3",
+			backgroundImage:chattaMetroThumb,
 		},
 		{
 			title: "Final Card",
-			content: "Last card - scroll down for normal scrolling",
+			content: "Magpie Restaurant",
 			date: "2025-10-05",
-			backgroundImage:"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+4",
+			backgroundImage:magpieRestaurantThumb,
 		},
 	]);
 </script>
@@ -530,7 +561,6 @@
 		height: 500px;
 		position: absolute;
 		left: 0;
-		top: 50px;
 		background-image: url("~/assets/images/bg/lightbg.jpg");
 		background-position: center;
 		background-size: cover;
@@ -581,7 +611,7 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		color: white; /* Change text color to be visible on images */
-		text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Add shadow for better readability */
+		text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Add shadow for better readability */
 	}
 
 	.content::before {
@@ -589,7 +619,7 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background-color: rgba(80, 48, 27, 0.6);
+		background-color: rgba(0, 0, 0, 0.6);
 		top: 0;
 		right: 0;
 	}
@@ -600,13 +630,12 @@
 		z-index: 1;
 	}
 
-	.content-footer{
+	.content-footer {
 		position: absolute;
-		left: 0;
+		right: 0;
 		bottom: 0;
 		padding: 30px;
 		z-index: 1;
-		width: 100%;
 		font-weight: 300;
 	}
 </style>

@@ -1,10 +1,20 @@
 <template>
   <section>
-    <div>
-      <div  ref="menuBar" class="menuBar" @click="showMenu = true">
-        <div class="menuIcon">
-          <div class="mb-2"></div>
+    <div style="height: 80px;">
+      <div  ref="menuBar" class="menuBar">
+        <div class="h-full" style="position: absolute; left: 0; top: 0;">
+          <a href="/">
+            <img src="../assets/images/logo.png" alt="Studio Amateur" class="h-full" style="height: 70px; padding: 10px" >
+          </a>
+        </div>
+
+        <div class="menuIcon my-auto h-full" @click="showMenu = true" style="cursor: pointer;">
           <div></div>
+          <div></div>
+        </div>
+
+        <div class="h-full my-auto" style="position: absolute; right: 0; top:15%; color:#F5F5DC;  padding: 10px">
+          <p class="text-xl">ESTD. 2013</p>
         </div>
       </div>
     </div>
@@ -191,21 +201,26 @@ watch(showMenu, (newVal) => {
 .menuBar {
   position: fixed;
   width: 100%;
+  height: 80px;
   top: 0;
   right: 0;
   z-index: 10;
   background-color: rgba(40, 15, 0, 50%);
+  /* background-color: transparent; */
   justify-content: center;
   border-bottom: .75px solid #F5F5DC;
-
 }
 .menuBar > div {
   display: grid;
   justify-content: center;
+}
+
+.menuIcon{
   padding: 25px;
 }
+
 .menuIcon > div {
-  width: 50px;
+  width: 40px;
   height: 2px;
   background-color: #F5F5DC;
   color: antiquewhite;
