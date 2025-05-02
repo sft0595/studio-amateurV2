@@ -40,7 +40,7 @@ const container = ref(null);
 
 const cardStyle = (index) => ({
   height: props.cardHeight,
-  top: `${index * 5}vh`,
+  top: 0,
   zIndex: index,
 });
 

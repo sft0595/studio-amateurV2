@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <div class="menuBar" @click="showMenu = true">
+      <div  ref="menuBar" class="menuBar" @click="showMenu = true">
         <div class="menuIcon">
           <div class="mb-2"></div>
           <div></div>
@@ -69,22 +69,81 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, onUnmounted } from "vue";
+import { gsap } from "gsap";
 
-const showMenu = ref(false); // Track menu visibility
-
-// Refs for elements
+const showMenu = ref(false);
 const menuWrapper = ref<HTMLElement | null>(null);
 const menuLeft = ref<HTMLElement | null>(null);
 const menuRight = ref<HTMLElement | null>(null);
+const menuBar = ref<HTMLElement | null>(null);
+const lastScrollPosition = ref(0);
+const isMenuHidden = ref(false);
 
-// Initialize GSAP animations on mount
+// Elastic animation configuration
+const elasticConfig = {
+  duration: 1.2,
+  ease: "elastic.out(1, 0.5)",
+  y: -100 // slides up 100px
+};
+
+const showConfig = {
+  duration: 0.8,
+  ease: "elastic.out(1, 0.8)",
+  y: 0 // returns to original position
+};
+
+const handleScroll = () => {
+  const currentScroll = window.scrollY;
+  const scrollDirection = currentScroll > lastScrollPosition.value ? 'down' : 'up';
+  
+  // Only trigger if scroll direction changes significantly
+  if (Math.abs(currentScroll - lastScrollPosition.value) > 5) {
+    if (scrollDirection === 'down' && currentScroll > 100 && !isMenuHidden.value) {
+      // Hide with elastic effect
+      gsap.to(menuBar.value, {
+        ...elasticConfig,
+        onStart: () => isMenuHidden.value = true
+      });
+    } 
+    else if ((scrollDirection === 'up' || currentScroll <= 100) && isMenuHidden.value) {
+      // Show with elastic effect
+      gsap.to(menuBar.value, {
+        ...showConfig,
+        onComplete: () => isMenuHidden.value = false
+      });
+    }
+  }
+  
+  lastScrollPosition.value = currentScroll;
+};
+
+// Debounce scroll handler
+const debouncedScroll = debounce(handleScroll, 20);
+
 onMounted(() => {
-  // Set initial positions
-  useGsap.set(menuWrapper.value, { zIndex: -1, opacity: 0 });
-  useGsap.set(menuLeft.value, { x: "-100%" });
-  useGsap.set(menuRight.value, { x: "100%" });
+  // Initial setup
+  gsap.set(menuWrapper.value, { zIndex: -1, opacity: 0 });
+  gsap.set(menuLeft.value, { x: "-100%" });
+  gsap.set(menuRight.value, { x: "100%" });
+  
+  // Add optimized scroll listener
+  window.addEventListener('scroll', debouncedScroll, { passive: true });
 });
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', debouncedScroll);
+  gsap.killTweensOf(menuBar.value); // Clean up animations
+});
+
+// Simple debounce function
+function debounce(func: Function, wait: number) {
+  let timeout: number;
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(func, wait);
+  };
+}
 
 // Watch for changes in `showMenu` and animate accordingly
 watch(showMenu, (newVal) => {

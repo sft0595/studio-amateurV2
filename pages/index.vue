@@ -394,12 +394,15 @@
 						<div class="flex justify-content-around">
 							<div class="content-details">
 								<h2 class="text-3xl">{{ card.title }}</h2>
-								<p>{{ card.content }}</p>
+								<p class="text-lg font-thin">{{ card.content }}</p>
 							</div>
 							<div class="content-details text-right">
-								<p class="text-4xl">
+								<p class="text-4xl font-thin">
 									{{ index + 1 }} / {{ cards.length }}
 								</p>
+							</div>
+							<div class="content-footer">
+								<p class="text-lg">{{ card.date }}</p>
 							</div>
 						</div>
 					</div>
@@ -480,26 +483,26 @@
 		{
 			title: "First Card",
 			content: "Scroll down to continue",
-			backgroundImage:
-				"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+1",
+			date: "2023-10-01",
+			backgroundImage:"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+1",
 		},
 		{
 			title: "Second Card",
 			content: "Keep scrolling",
-			backgroundImage:
-				"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+2",
+			date: "2024-12-23",
+			backgroundImage: "https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+2",
 		},
 		{
 			title: "Third Card",
 			content: "Almost there",
-			backgroundImage:
-				"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+3",
+			date: "2025-01-15",
+			backgroundImage:"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+3",
 		},
 		{
 			title: "Final Card",
 			content: "Last card - scroll down for normal scrolling",
-			backgroundImage:
-				"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+4",
+			date: "2025-10-05",
+			backgroundImage:"https://images.pexels.com/photos/4041160/pexels-photo-4041160.jpeg?text=Card+4",
 		},
 	]);
 </script>
@@ -595,5 +598,15 @@
 		width: 100%;
 		position: relative;
 		z-index: 1;
+	}
+
+	.content-footer{
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		padding: 30px;
+		z-index: 1;
+		width: 100%;
+		font-weight: 300;
 	}
 </style>
